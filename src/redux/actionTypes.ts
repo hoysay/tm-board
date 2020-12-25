@@ -1,16 +1,16 @@
-import { ResourceChange } from "../utils/types";
+import { ResourceAmount } from "../utils/types";
 
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 
 interface IncrementAction {
     type: typeof INCREMENT,
-    payload: ResourceChange
+    payload: ResourceAmount
 }
   
 interface DecrementAction {
     type: typeof DECREMENT,
-    payload: ResourceChange
+    payload: ResourceAmount
 }
   
   export type ResourceChangeActionTypes = IncrementAction | DecrementAction

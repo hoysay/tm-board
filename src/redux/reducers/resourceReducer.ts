@@ -1,18 +1,53 @@
 import { INCREMENT, DECREMENT, ResourceChangeActionTypes } from "../actionTypes";
+import { Resource } from "../../utils/types";
 
-const initialState = {
-    allIds: [],
-    byIds: {}
-  };
+interface Amounts {
+    value: number,
+    production: number
+}
 
-export default function resourceReducer(state = initialState, action: ResourceChangeActionTypes) {
+const initialAmounts: Amounts = {
+    value: 0,
+    production: 0
+}
+
+interface IState {
+    [Resource.TerraformingRating]: Amounts,
+    [Resource.Megacredits]: Amounts,
+    [Resource.Steel]: Amounts,
+    [Resource.Titanium]: Amounts,
+    [Resource.Plants]: Amounts,
+    [Resource.Energy]: Amounts,
+    [Resource.Heat]: Amounts
+}
+
+const initialState: IState  = {
+    [Resource.TerraformingRating]: initialAmounts,
+    [Resource.Megacredits]: initialAmounts,
+    [Resource.Steel]: initialAmounts,
+    [Resource.Titanium]: initialAmounts,
+    [Resource.Plants]: initialAmounts,
+    [Resource.Energy]: initialAmounts,
+    [Resource.Heat]: initialAmounts
+};
+
+export default function resourceReducer(state: IState = initialState, action: ResourceChangeActionTypes) {
     switch (action.type) {
         case INCREMENT: {
+            console.log("reducer increment");
+            const { resource, amount } = action.payload;
+            const { value, production } = state[resource];
+            console.log("new production: " + production + " value: " + value);
             return {
-                ...state
+                ...state,
+                [resource]: {
+                    production: production + amount,
+                    value: value
+                }
             }
         }
         case DECREMENT: {
+            console.log("reducer decrement");
             return {
                 ...state
             }

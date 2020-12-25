@@ -36,7 +36,6 @@ const ResourceTile: React.FC<ResourceTileProps> = ({resourceType}) => {
     // value/production and setters will eventually be pulled from redux.
     const [value, setValue] = React.useState(0);
 
-
     const handleClickIncrement = () => {
         setValue(prev => prev + 1);
     }
@@ -44,7 +43,6 @@ const ResourceTile: React.FC<ResourceTileProps> = ({resourceType}) => {
     const handleClickDecrement = () => {
         setValue(prev => prev - 1);
     }
-
 
     const handleClickGain = (gainedAmount: number) => {
         setValue(prev => prev + gainedAmount);
