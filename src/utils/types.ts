@@ -21,3 +21,23 @@ export interface ResourceAmount {
     resource: Resource,
     amount: number
 }
+
+export interface Amounts {
+    value: number,
+    production: number
+}
+
+export interface IState {
+    resourceReducer: IResourceState
+}
+
+export interface IResourceState {
+    [Resource.TerraformingRating]: Amounts,
+    [Resource.Megacredits]: Amounts,
+    [Resource.Steel]: Amounts,
+    [Resource.Titanium]: Amounts,
+    [Resource.Plants]: Amounts,
+    [Resource.Energy]: Amounts,
+    [Resource.Heat]: Amounts
+}
+
