@@ -114,7 +114,6 @@ const ProductionSetter: React.FC<ProductionSetterProps> = ({resourceType, curren
     );
 }
 
-
 interface ResourceSpendGainModalProps {
     modalVisible: boolean;
     resourceType: Resource;
