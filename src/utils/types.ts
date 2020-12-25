@@ -17,7 +17,7 @@ export const ResourceToLabel = {
     [Resource.Energy]: "Energy",
     [Resource.Heat]: "Heat",
 }
-export interface ResourceChange {
+export interface ResourceAmount {
     resource: Resource,
-    changeAmount: number
+    amount: number
 }

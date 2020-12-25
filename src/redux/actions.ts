@@ -1,12 +1,12 @@
 import { INCREMENT, DECREMENT } from "./actionTypes";
-import { ResourceChange } from "../utils/types";
+import { ResourceAmount } from "../utils/types";
 
-export const increment = (payload: ResourceChange) => ({
+export const increment = (payload: ResourceAmount) => ({
     type: INCREMENT,
-    payload: { payload }
-  });
+    payload: payload
+});
 
-  export const decrement = (payload: ResourceChange) => ({
+export const decrement = (payload: ResourceAmount) => ({
     type: DECREMENT,
-    payload: { payload}
-  });
+    payload: payload
+});
