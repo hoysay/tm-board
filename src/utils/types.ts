@@ -19,7 +19,8 @@ export const ResourceToLabel = {
 }
 export interface ResourceAmount {
     resource: Resource,
-    amount: number
+    value: number,
+    production: number
 }
 
 export interface Amounts {
