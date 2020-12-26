@@ -3,4 +3,5 @@ body,
 .App,
 .App > div {
   height: 100%;
+  touch-action: manipulation;
 }
