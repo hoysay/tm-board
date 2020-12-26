@@ -19,23 +19,30 @@ const initialState: IResourceState  = {
 export default function resourceReducer(state: IResourceState = initialState, action: ResourceChangeActionTypes) {
     switch (action.type) {
         case INCREMENT: {
-            const { resource, amount } = action.payload;
-            const { value, production } = state[resource];
+            const { resource, value: inc_value, production: inc_production } = action.payload;
+            const { value: current_value, production: current_production } = state[resource];
             const newState = {
                 ...state,
                 [resource]: {
-                    production: production + amount,
-                    value: value
+                    production: current_production + inc_production,
+                    value: current_value + inc_value
                 }
             };
             console.log("state: ", newState);
             return newState;
         }
         case DECREMENT: {
-            console.log("reducer decrement");
-            return {
-                ...state
-            }
+            const { resource, value: dec_value, production: dec_production } = action.payload;
+            const { value: current_value, production: current_production } = state[resource];
+            const newState = {
+                ...state,
+                [resource]: {
+                    production: current_production - dec_production,
+                    value: current_value - dec_value
+                }
+            };
+            console.log("state: ", newState);
+            return newState;
         }
         default:
             return state;
