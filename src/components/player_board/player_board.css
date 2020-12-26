@@ -1,0 +1,15 @@
+.PlayerBoard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.PlayerBoard-row {
+  display: flex;
+  flex: 2;
+}
+
+.PlayerBoard-header {
+  flex: 1;
+}
