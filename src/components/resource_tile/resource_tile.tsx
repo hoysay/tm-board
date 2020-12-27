@@ -59,11 +59,11 @@ class ResourceTile extends React.Component<ResourceTileProps, ResourceTileState>
     }
 
     value = () => {
-        return this.props.resourceAmounts.value
+        return this.props.resourceAmounts.value;
     }
 
     production = () => {
-        return this.props.resourceAmounts.production
+        return this.props.resourceAmounts.production;
     }
 
     handleIncrementValue = (gainedAmount: number) => {

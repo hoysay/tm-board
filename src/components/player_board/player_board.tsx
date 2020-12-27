@@ -4,6 +4,7 @@ import {Resource} from "../../utils/types";
 import ResourceTile from "../resource_tile/resource_tile";
 import GenerationPhase from "../../components/generation_phase/generation_phase";;
 
+import logo from "./logo.png";
 import "./player_board.css";
 
 const PlayerBoard: React.FC<{}> = () => {
@@ -11,7 +12,11 @@ const PlayerBoard: React.FC<{}> = () => {
         <div className="PlayerBoard">
             <div className="PlayerBoard-row PlayerBoard-header">
                 <ResourceTile resourceType={Resource.TerraformingRating}/>
-                <GenerationPhase />
+                <div>
+                    <img src={logo} alt="Logo" width="250" height="250"/>
+                    <br />
+                    <GenerationPhase />
+                </div>
             </div>
             <div className="PlayerBoard-row">
                 <ResourceTile resourceType={Resource.Megacredits}/>
