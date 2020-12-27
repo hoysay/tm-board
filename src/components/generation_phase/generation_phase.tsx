@@ -1,12 +1,19 @@
 import React from "react";
 
 import Button from "react-bootstrap/Button";
+import { connect } from "react-redux";
+
+import {generate} from "../../redux/actions";
+
 import "./generation_phase.css";
 
-// this should take in redux props modify data
-class GenerationPhase extends React.Component<{}> {
+interface GenerationPhaseDispatchProps {
+    generate: typeof generate,
+}
+
+class GenerationPhase extends React.Component<GenerationPhaseDispatchProps> {
     onIncrementValue = () =>{
-        console.log("Generate!");
+        this.props.generate();
     }
     
     render() {
@@ -18,4 +25,5 @@ class GenerationPhase extends React.Component<{}> {
     }
 }
 
-export default GenerationPhase;
+
+export default connect(() => {}, {generate})(GenerationPhase);
