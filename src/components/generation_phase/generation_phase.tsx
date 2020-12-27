@@ -12,14 +12,14 @@ interface GenerationPhaseDispatchProps {
 }
 
 class GenerationPhase extends React.Component<GenerationPhaseDispatchProps> {
-    onIncrementValue = () =>{
+    onHandleGenerate = () =>{
         this.props.generate();
     }
     
     render() {
         return (
             <div className="GenerationPhase">
-                <Button size="lg" onClick={this.onIncrementValue}>Generate</Button>
+                <Button size="lg" onClick={this.onHandleGenerate}>Generate</Button>
             </div>
         );
     }
