@@ -17,6 +17,18 @@ export const ResourceToLabel = {
     [Resource.Energy]: "Energy",
     [Resource.Heat]: "Heat",
 }
+
+export const ResourceEnumStringToResource: Record<string, Resource> = {
+    '0': Resource.TerraformingRating,
+    '1': Resource.Megacredits,
+    '2': Resource.Steel,
+    '3': Resource.Titanium,
+    '4': Resource.Plants,
+    '5': Resource.Energy,
+    '6': Resource.Heat,
+}
+
+// ResourceAmount used as argument for increment/decrement actions.
 export interface ResourceAmount {
     resource: Resource,
     value: number,
