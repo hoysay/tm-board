@@ -204,7 +204,7 @@ const ResourceSpendGainModal: React.FC<ResourceSpendGainModalProps> = ({
         <Modal.Body>
             <div 
             className="Modal-currentResourceValue"
-            style={{"backgroundColor": ResourceToPrimaryColor[resourceType]}}>
+            style={{"backgroundColor": ResourceToSecondaryColor[resourceType]}}>
                 Current resource value: {currentResourceValue} 
             </div>
             <div 
