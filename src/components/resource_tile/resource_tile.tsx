@@ -2,9 +2,12 @@ import React from "react";
 import { Modal, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-import {Resource, ResourceToLabel} from "../../utils/types";
+import {Amounts, IState, Resource, ResourceAmount, ResourceToLabel} from "../../utils/types";
 
 import "./resource_tile.css";
+
+import { connect } from "react-redux";
+import { increment, decrement } from "../../redux/actions";
 
 const ResourceToPrimaryColor = {
     [Resource.TerraformingRating]: "#bd8e2f",
@@ -26,34 +29,69 @@ const ResourceToSecondaryColor = {
     [Resource.Heat]: "#f0927a",
 }
 
-interface ResourceTileProps {
-    resourceType: Resource;
+interface OwnProps {
+    resourceType: Resource,
 }
 
-const ResourceTile: React.FC<ResourceTileProps> = ({resourceType}) => {
-    const [showModal, setShowModal] = React.useState(false);
+interface ResourceTileProps {
+    resourceType: Resource,
+    resourceAmounts: Amounts,
+    increment: typeof increment,
+    decrement: typeof decrement,
+}
 
-    // value/production and setters will eventually be pulled from redux.
-    const [value, setValue] = React.useState(0);
+interface ResourceTileState {
+    showModal: boolean;
+}
 
-    const handleClickIncrement = () => {
-        setValue(prev => prev + 1);
+class ResourceTile extends React.Component<ResourceTileProps, ResourceTileState> {
+    constructor(props: ResourceTileProps) {
+        super(props);
+        this.state = {
+            showModal: false
+        }
     }
 
-    const handleClickDecrement = () => {
-        setValue(prev => prev - 1);
+    setShowModal = (shouldShowModal: boolean) => {
+        this.setState({
+            showModal: shouldShowModal
+        });
     }
 
-    const handleClickGain = (gainedAmount: number) => {
-        setValue(prev => prev + gainedAmount);
+    // const [showModal, setShowModal] = React.useState(false);
+
+
+    // // // value/production and setters will eventually be pulled from redux.
+    // const [value, setValue] = React.useState(0);
+    value = () => {
+        return this.props.resourceAmounts.value
     }
 
-    const handleClickSpend = (spentAmount: number) => {
-        setValue(prev => prev - spentAmount);
+    production = () => {
+        return this.props.resourceAmounts.production
+    }
+
+    handleIncrementValue = (gainedAmount: number) => {
+        this.props.increment({resource: this.props.resourceType, value: gainedAmount, production: 0});
+    }
+
+    handleDecrementValue = (spentAmount: number) => {
+        this.props.decrement({resource: this.props.resourceType, value: spentAmount, production: 0});
+    }
+
+    handleIncrementProduction = () => {
+        this.props.increment({resource: this.props.resourceType, value: 0, production: 1});
+    }
+
+    handleDecrementProduction = () => {
+        this.props.decrement({resource: this.props.resourceType, value: 0, production: 1});
     }
 
 
-    return (
+    render() {
+        const resourceType = this.props.resourceType;
+
+        return (
         <div 
           className="ResourceTile"
           style={{"backgroundColor": ResourceToSecondaryColor[resourceType]}}>
@@ -67,29 +105,30 @@ const ResourceTile: React.FC<ResourceTileProps> = ({resourceType}) => {
             </div>
            
            {resourceType !== Resource.TerraformingRating ? (
-                <div className="ResourceTile-availableValue" onClick={() => setShowModal(true)}>
-                    {value}
+                <div className="ResourceTile-availableValue" onClick={() => this.setShowModal(true)}>
+                    {this.value()}
                 </div>
             ) : null}
 
             <div className="ResourceTile-productionSetter">
                 <ProductionSetter 
                   resourceType={resourceType}
-                  currentValue={value}
-                  onDecrementValue={handleClickDecrement}
-                  onIncrementValue={handleClickIncrement} />
+                  currentValue={this.production()}
+                  onDecrementValue={this.handleDecrementProduction}
+                  onIncrementValue={this.handleIncrementProduction} />
             </div>
 
 
-            <ResourceSpendGainModal 
-              modalVisible={showModal} 
+            {/* <ResourceSpendGainModal 
+              modalVisible={this.state.showModal} 
               resourceType={resourceType} 
-              currentResourceValue={value}
-              onHideModal={() => setShowModal(false)} 
+              currentResourceValue={this.value()}
+              onHideModal={() => this.setShowModal(false)} 
               onClickSpend={handleClickSpend}
-              onClickGain={handleClickGain}  />
+              onClickGain={handleClickGain}  /> */}
         </div>
-    );
+    )
+    };
 }
 
 interface ProductionSetterProps {
@@ -195,4 +234,14 @@ const ResourceSpendGainModal: React.FC<ResourceSpendGainModalProps> = ({
     );
 }
 
-export default ResourceTile;
+const mapStateToProps = (state: IState, ownProps: OwnProps) => {
+    const { resourceType } = ownProps
+    return {
+        resourceAmounts: state.resourceReducer[resourceType]
+    };
+}
+
+export default connect(
+    mapStateToProps,
+   { increment, decrement }
+ )(ResourceTile);
