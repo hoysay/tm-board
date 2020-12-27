@@ -1,5 +1,7 @@
-import { INCREMENT, DECREMENT, ResourceChangeActionTypes } from "../actionTypes";
+import { INCREMENT, DECREMENT, GENERATE, ResourceChangeActionTypes } from "../actionTypes";
 import { Amounts, IResourceState, Resource } from "../../utils/types";
+
+import {getGeneratedState} from "../../utils/generation_logic";
 
 const initialAmounts: Amounts = {
     value: 0,
@@ -43,6 +45,13 @@ export default function resourceReducer(state: IResourceState = initialState, ac
             };
             console.log("state: ", newState);
             return newState;
+        }
+        case GENERATE: {
+            const updatedStateAfterGeneration = getGeneratedState({
+                resourceReducer: state,
+            });
+            
+            return updatedStateAfterGeneration.resourceReducer;
         }
         default:
             return state;

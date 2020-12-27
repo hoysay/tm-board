@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT } from "./actionTypes";
+import { INCREMENT, DECREMENT, GENERATE } from "./actionTypes";
 import { ResourceAmount } from "../utils/types";
 
 export const increment = (payload: ResourceAmount) => ({
@@ -10,3 +10,8 @@ export const decrement = (payload: ResourceAmount) => ({
     type: DECREMENT,
     payload: payload
 });
+
+export const generate = () => ({
+    type: GENERATE,
+    payload: {},
+})
