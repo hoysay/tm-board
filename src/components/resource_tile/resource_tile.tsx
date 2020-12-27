@@ -58,11 +58,6 @@ class ResourceTile extends React.Component<ResourceTileProps, ResourceTileState>
         });
     }
 
-    // const [showModal, setShowModal] = React.useState(false);
-
-
-    // // // value/production and setters will eventually be pulled from redux.
-    // const [value, setValue] = React.useState(0);
     value = () => {
         return this.props.resourceAmounts.value
     }
@@ -119,13 +114,13 @@ class ResourceTile extends React.Component<ResourceTileProps, ResourceTileState>
             </div>
 
 
-            {/* <ResourceSpendGainModal 
+            <ResourceSpendGainModal 
               modalVisible={this.state.showModal} 
               resourceType={resourceType} 
               currentResourceValue={this.value()}
               onHideModal={() => this.setShowModal(false)} 
-              onClickSpend={handleClickSpend}
-              onClickGain={handleClickGain}  /> */}
+              onClickSpend={this.handleDecrementValue}
+              onClickGain={this.handleIncrementValue}  />
         </div>
     )
     };
